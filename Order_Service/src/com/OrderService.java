@@ -11,6 +11,15 @@ import org.jsoup.*;
 import org.jsoup.parser.*; 
 import org.jsoup.nodes.Document;
 
+@Path("/Orders") 
 public class OrderService {
+	Order orderObj = new Order(); 
+	@GET
+	@Path("/") 
+	@Produces(MediaType.TEXT_HTML) 
+	public String readOrders() 
+	 {     
+	 return orderObj.readOrders(); 
+	 } 
 
 }
