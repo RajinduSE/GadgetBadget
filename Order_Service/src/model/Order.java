@@ -13,7 +13,7 @@ public class Order {
 		 Class.forName("com.mysql.jdbc.Driver"); 
 		 
 	     //DBServer/DBName, username, password 
-		 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/orderdb", "root", "1233"); 
+		 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/orderdb", "root", "shl199809"); 
 		 } 
 		 catch (Exception e) 
 		 {e.printStackTrace();} 
@@ -47,7 +47,7 @@ public class Order {
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while inserting the item."; 
+		 output = "Error while inserting the order."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -98,7 +98,7 @@ public class Order {
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while reading the items."; 
+		 output = "Error while reading the orders."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -122,7 +122,7 @@ public class Order {
 			 preparedStmt.setString(3, buyerName); 
 			 preparedStmt.setString(4, buyerPhone);
 			 preparedStmt.setString(5, buyerMail);
-			 preparedStmt.setInt(5, Integer.parseInt(ID)); 
+			 preparedStmt.setInt(6, Integer.parseInt(ID)); 
 			 // execute the statement
 			 preparedStmt.execute(); 
 			 con.close(); 
@@ -130,7 +130,7 @@ public class Order {
 			 } 
 			 catch (Exception e) 
 			 { 
-			 output = "Error while updating the item."; 
+			 output = "Error while updating the order."; 
 			 System.err.println(e.getMessage()); 
 			 } 
 			 return output; 
@@ -157,7 +157,7 @@ public class Order {
 			 } 
 			 catch (Exception e) 
 			 { 
-			 output = "Error while deleting the item."; 
+			 output = "Error while deleting the order."; 
 			 System.err.println(e.getMessage()); 
 			 } 
 			 return output; 
