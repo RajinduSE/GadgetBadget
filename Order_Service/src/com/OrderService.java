@@ -13,7 +13,9 @@ import org.jsoup.nodes.Document;
 
 @Path("/Orders") 
 public class OrderService {
+	
 	Order orderObj = new Order(); 
+	
 	@GET
 	@Path("/") 
 	@Produces(MediaType.TEXT_HTML) 
@@ -21,5 +23,55 @@ public class OrderService {
 	 {     
 	 return orderObj.readOrders(); 
 	 } 
+	
+	@POST
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String insertOrder(@FormParam("productID") String productID, 
+	 @FormParam("productName") String productName, 
+	 @FormParam("buyerName") String buyerName,
+	 @FormParam("buyerPhone") String buyerPhone,
+	 @FormParam("buyerMail") String buyerMail) 
+	{ 
+	 String output = orderObj.insertOrder(productID, productName, buyerName, buyerPhone,buyerMail); 
+	return output; 
+	}
+	
+	@PUT
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String updateOrder(String orderData) 
+	{ 
+	//Convert the input string to a JSON object 
+	 JsonObject orderObject = new JsonParser().parse(orderData).getAsJsonObject(); 
+	//Read the values from the JSON object
+	 String orderID = orderObject.get("orderID").getAsString(); 
+	 String productID = orderObject.get("productID").getAsString(); 
+	 String productName = orderObject.get("productName").getAsString(); 
+	 String buyerName = orderObject.get("buyerName").getAsString(); 
+	 String buyerPhone = orderObject.get("buyerPhone").getAsString();
+	 String buyerMail = orderObject.get("buyerMail").getAsString(); 
+	 String output = orderObj.updateOrder(orderID, productID, productName, buyerName, buyerPhone, buyerMail); 
+	return output; 
+	}
+	
+	@DELETE
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_XML) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String deleteOrder(String orderData) 
+	{ 
+	//Convert the input string to an XML document
+	 Document doc = Jsoup.parse(orderData, "", Parser.xmlParser()); 
+	 
+	//Read the value from the element <orderID>
+	 String orderID = doc.select("orderID").text(); 
+	 String output = orderObj.deleteOrder(orderID); 
+	return output; 
+	}
+
+
 
 }
