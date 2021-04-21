@@ -28,7 +28,7 @@ public class Order {
 		 { 
 		 Connection con = connect(); 
 		 if (con == null) 
-		 {return "Error while connecting to the database for inserting."; } 
+		 {return "Error while connecting to the database for inserting. "; } 
 		 // create a prepared statement
 		 String query = " insert into orders (`orderID`,`productID`,`productName`,`buyerName`,`buyerPhone`,`buyerMail`,`date`)"
 		 + " values (?, ?, ?, ?, ?, ?, ?)"; 
