@@ -32,9 +32,10 @@ public class OrderService {
 	 @FormParam("productName") String productName, 
 	 @FormParam("buyerName") String buyerName,
 	 @FormParam("buyerPhone") String buyerPhone,
-	 @FormParam("buyerMail") String buyerMail) 
+	 @FormParam("buyerMail") String buyerMail,
+	 @FormParam("date") String date) 
 	{ 
-	 String output = orderObj.insertOrder(productID, productName, buyerName, buyerPhone,buyerMail); 
+	 String output = orderObj.insertOrder(productID, productName, buyerName, buyerPhone, buyerMail, date); 
 	return output; 
 	}
 	
@@ -52,8 +53,9 @@ public class OrderService {
 	 String productName = orderObject.get("productName").getAsString(); 
 	 String buyerName = orderObject.get("buyerName").getAsString(); 
 	 String buyerPhone = orderObject.get("buyerPhone").getAsString();
-	 String buyerMail = orderObject.get("buyerMail").getAsString(); 
-	 String output = orderObj.updateOrder(orderID, productID, productName, buyerName, buyerPhone, buyerMail); 
+	 String buyerMail = orderObject.get("buyerMail").getAsString();
+	 String date = orderObject.get("date").getAsString(); 
+	 String output = orderObj.updateOrder(orderID, productID, productName, buyerName, buyerPhone, buyerMail, date); 
 	return output; 
 	}
 	

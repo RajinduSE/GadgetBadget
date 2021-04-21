@@ -21,7 +21,7 @@ public class Order {
 		 } 
 		
 	//insertOrder method
-		public String insertOrder(String productID, String productName, String buyerName, String buyerPhone,String buyerMail) 
+		public String insertOrder(String productID, String productName, String buyerName, String buyerPhone,String buyerMail,String date) 
 		 { 
 		 String output = ""; 
 		 try
@@ -30,8 +30,8 @@ public class Order {
 		 if (con == null) 
 		 {return "Error while connecting to the database for inserting."; } 
 		 // create a prepared statement
-		 String query = " insert into orders (`orderID`,`productID`,`productName`,`buyerName`,`buyerPhone`,`buyerMail`)"
-		 + " values (?, ?, ?, ?, ?, ?)"; 
+		 String query = " insert into orders (`orderID`,`productID`,`productName`,`buyerName`,`buyerPhone`,`buyerMail`,`date`)"
+		 + " values (?, ?, ?, ?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
 		 preparedStmt.setInt(1, 0); 
@@ -39,7 +39,8 @@ public class Order {
 		 preparedStmt.setString(3, productName); 
 		 preparedStmt.setString(4, buyerName); 
 		 preparedStmt.setString(5, buyerPhone);
-		 preparedStmt.setString(6, buyerMail); 
+		 preparedStmt.setString(6, buyerMail);
+		 preparedStmt.setString(7, date);
 		// execute the statement
 		 preparedStmt.execute(); 
 		 con.close(); 
@@ -67,6 +68,7 @@ public class Order {
 		 "<th>Name</th>" + 
 		 "<th>Phone Number</th>" +
 		 "<th>Email</th>" +
+		 "<th>Date</th>" +
 		 "<th>Update</th><th>Remove</th></tr>"; 
 		 
 		 String query = "select * from orders"; 
@@ -80,20 +82,22 @@ public class Order {
 		 String productName = rs.getString("productName"); 
 		 String buyerName = rs.getString("buyerName");
 		 String buyerPhone = rs.getString("buyerPhone");
-		 String buyerMail = rs.getString("buyerMail"); 
+		 String buyerMail = rs.getString("buyerMail");
+		 String date = rs.getString("date");
 		 // Add into the html table
 		 output += "<tr><td>" + productID + "</td>"; 
 		 output += "<td>" + productName + "</td>"; 
 		 output += "<td>" + buyerName + "</td>"; 
 		 output += "<td>" + buyerPhone + "</td>";
-		 output += "<td>" + buyerMail + "</td>"; 
+		 output += "<td>" + buyerMail + "</td>";
+		 output += "<td>" + date + "</td>"; 
 		 // buttons
 		 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"+ "<td><form method='post' action='items.jsp'>"+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
 		 + "<input name='orderID' type='hidden' value='" + orderID 
 		 + "'>" + "</form></td></tr>"; 
 		 } 
 		 con.close(); 
-		 // Complete the html table
+		 
 		 output += "</table>"; 
 		 } 
 		 catch (Exception e) 
@@ -105,7 +109,7 @@ public class Order {
 		 } 
 		
 	//updateOrder method
-		public String updateOrder(String ID,String productID, String productName, String buyerName, String buyerPhone,String buyerMail)
+		public String updateOrder(String ID,String productID, String productName, String buyerName, String buyerPhone,String buyerMail,String date)
 		{ 
 			 String output = ""; 
 			 try
@@ -114,7 +118,7 @@ public class Order {
 			 if (con == null) 
 			 {return "Error while connecting to the database for updating."; } 
 			 // create a prepared statement
-			 String query = "UPDATE orders SET productID=?,productName=?,buyerName=?,buyerPhone=?,buyerMail=?  WHERE orderID=?"; 
+			 String query = "UPDATE orders SET productID=?,productName=?,buyerName=?,buyerPhone=?,buyerMail=?,date=?  WHERE orderID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
 			 preparedStmt.setString(1, productID); 
@@ -122,7 +126,8 @@ public class Order {
 			 preparedStmt.setString(3, buyerName); 
 			 preparedStmt.setString(4, buyerPhone);
 			 preparedStmt.setString(5, buyerMail);
-			 preparedStmt.setInt(6, Integer.parseInt(ID)); 
+			 preparedStmt.setString(6, date);
+			 preparedStmt.setInt(7, Integer.parseInt(ID)); 
 			 // execute the statement
 			 preparedStmt.execute(); 
 			 con.close(); 
