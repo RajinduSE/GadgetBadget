@@ -23,10 +23,21 @@ public class OrderService {
 	public String readOrders() 
 	 {     
 	 return orderObj.readOrders(); 
-	 } 
+	 }
+	
+	
+	@GET
+	@Path("/getOrderbyID/{id}")
+	@Produces(MediaType.TEXT_HTML)
+	public String getOrderbyID(@PathParam("id") String id) {
+		System.out.println(id);
+		
+		return this.orderObj.getOrderbyID(id);
+	}
+	
 	
 	@POST
-	@Path("/") 
+	@Path("/add") 
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String insertOrder(@FormParam("productID") String productID, 
@@ -40,13 +51,14 @@ public class OrderService {
 	return output; 
 	}
 	
+	
 	@PUT
-	@Path("/") 
+	@Path("/update") 
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String updateOrder(String orderData) 
 	{ 
-	//Convert the input string to a JSON object 
+	//Conversion to JSON object 
 	 JsonObject orderObject = new JsonParser().parse(orderData).getAsJsonObject(); 
 	//Read the values from the JSON object
 	 String orderID = orderObject.get("orderID").getAsString(); 
@@ -60,16 +72,17 @@ public class OrderService {
 	return output; 
 	}
 	
+	
 	@DELETE
-	@Path("/") 
+	@Path("/delete") 
 	@Consumes(MediaType.APPLICATION_XML) 
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String deleteOrder(String orderData) 
 	{ 
-	//Convert the input string to an XML document
+	//Conversion to XML document
 	 Document doc = Jsoup.parse(orderData, "", Parser.xmlParser()); 
 	 
-	//Read the value from the element <orderID>
+	//Read the value from orderID
 	 String orderID = doc.select("orderID").text(); 
 	 String output = orderObj.deleteOrder(orderID); 
 	return output; 
