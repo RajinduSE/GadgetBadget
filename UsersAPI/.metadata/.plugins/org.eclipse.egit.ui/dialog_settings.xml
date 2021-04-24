@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel" value="1"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/RajinduSE/GadgetBadget"/>
+		<item value="https://github.com:3306/RajinduSE/GadgetBadget"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+		<item value="bitbucket.org"/>
+	</list>
+	<section name="GitImportWizard">
+	</section>
+</section>
